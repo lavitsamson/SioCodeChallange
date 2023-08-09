@@ -16,11 +16,12 @@ class TimeLogController extends Controller
     {
         //
         if($project_id == 'all') $timelogs = auth()->user()->timelog;
-        else $timelogs = auth()->user()->timelog->where('project_id', $project_id)->get();
+        else $timelogs = auth()->user()->timelog->where('project_id', $project_id);
 
         $chart = $hour_chart->build($timelogs, $type);
+        $projects = auth()->user()->project;
 
-        return view('timelog.index', compact('timelogs', 'chart'));
+        return view('timelog.index', compact('projects', 'timelogs', 'chart'));
     }
 
     /**

@@ -26,6 +26,23 @@
                     </div>
                 @endif
 
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-2">
+                            Project:
+                        </div>
+                        <div class="3">
+                            <select name="project_id" id="project" onchange="projectChanged()">
+                                <option value="all">All</option>
+                                @forelse ($projects as $project)
+                                    <option value="{{ $project->id }}">{{ $project->project_name }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="m-3 mt-5 table">
                     <tr>
                         <th>ID</th>
@@ -65,9 +82,19 @@
             </div>
         </div>
     </div>
-    
+
     <script src="{{ $chart->cdn() }}"></script>
 
     {{ $chart->script() }}
+
+    <script>
+        function projectChanged() {
+            var sel = document.getElementById('project');
+            var projectId = sel.value;
+            var url = "{{ route('timelog.filter', ['project_id' => ':id']) }}";
+            url = url.replace(':id', projectId);
+            document.location.href=url;
+        }
+    </script>
 
 </x-app-layout>

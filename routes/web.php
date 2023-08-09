@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/timelog', [TimeLogController::class, 'store'])->name('timelog.store');
     Route::post('/timelog/{id}', [TimeLogController::class, 'update'])->name('timelog.update');
     Route::get('/timelog/delete/{id}', [TimeLogController::class, 'destroy'])->name('timelog.destroy');
+    Route::get('/timelog/filter/{project_id?}/{type?}', [TimeLogController::class, 'index'])->name('timelog.filter');
 });
 
 require __DIR__.'/auth.php';
